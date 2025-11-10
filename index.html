@@ -251,7 +251,8 @@
         border: 1px solid rgba(30, 27, 22, 0.12);
         box-shadow: 0 18px 35px rgba(30, 27, 22, 0.18);
         padding: 0.65rem;
-        max-width: clamp(10rem, 20vw, 12rem);
+        width: 164px;
+        height: 200px;
         z-index: 1000;
         backdrop-filter: blur(2px);
         will-change: transform, opacity;
@@ -264,7 +265,7 @@
       .artist-tooltip img {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
         border-radius: 4px;
         filter: saturate(0.9);
@@ -385,7 +386,7 @@
             <article class="timeline-card">
               <span class="timeline-era">1900s</span>
               <h3>
-                <span class="artist-name" data-artist-image="" data-artist="Raja Ravi Varma" tabindex="0">
+                <span class="artist-name" data-artist-image="name image/Raja Ravi Varma.jpeg" data-artist="Raja Ravi Varma" tabindex="0">
                   Raja Ravi Varma
                 </span>
               </h3>
@@ -524,9 +525,26 @@
         const tooltipImage = tooltip.querySelector('img');
         const artistNames = document.querySelectorAll('.artist-name[data-artist-image]');
         let active = null;
+        let lastPosition = null;
+
+        const positionTooltip = (xCoord, yCoord) => {
+          const padding = 16;
+          const offset = 24;
+          const width = tooltip.offsetWidth || 0;
+          const height = tooltip.offsetHeight || 0;
+
+          let x = xCoord - width / 2;
+          let y = yCoord - offset - height;
+
+          x = Math.max(padding, Math.min(x, window.innerWidth - width - padding));
+          y = Math.max(padding, y);
+
+          tooltip.style.transform = `translate(${x}px, ${y}px)`;
+        };
 
         const hideTooltip = () => {
           active = null;
+          lastPosition = null;
           tooltip.classList.remove('is-visible');
           tooltip.style.transform = 'translate(-9999px, -9999px)';
           if (tooltipImage) {
@@ -537,20 +555,8 @@
 
         const updatePosition = (event) => {
           if (!tooltip.classList.contains('is-visible')) return;
-          const offset = 24;
-          let x = event.clientX + offset;
-          let y = event.clientY + offset;
-          tooltip.style.transform = `translate(${x}px, ${y}px)`;
-
-          const rect = tooltip.getBoundingClientRect();
-          const maxX = window.innerWidth - rect.width - 16;
-          const maxY = window.innerHeight - rect.height - 16;
-
-          if (rect.left > maxX || rect.top > maxY) {
-            x = Math.min(x, maxX);
-            y = Math.min(y, maxY);
-            tooltip.style.transform = `translate(${x}px, ${y}px)`;
-          }
+          lastPosition = { x: event.clientX, y: event.clientY };
+          positionTooltip(lastPosition.x, lastPosition.y);
         };
 
         const showTooltip = (event) => {
@@ -559,12 +565,21 @@
           const source = target.dataset.artistImage;
           if (!source) return;
           active = target;
+          lastPosition = { x: event.clientX, y: event.clientY };
           tooltipImage.src = source;
           const artistName = target.dataset.artist || target.textContent.trim();
           tooltipImage.alt = artistName ? `Portrait of ${artistName}` : '';
           tooltip.classList.add('is-visible');
-          updatePosition(event);
+          positionTooltip(lastPosition.x, lastPosition.y);
         };
+
+        if (tooltipImage) {
+          tooltipImage.addEventListener('load', () => {
+            if (lastPosition) {
+              positionTooltip(lastPosition.x, lastPosition.y);
+            }
+          });
+        }
 
         artistNames.forEach((nameEl) => {
           nameEl.addEventListener('pointerenter', showTooltip);
