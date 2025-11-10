@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Journey of Indian Painting</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Work+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --background: #f6f1e0;
+        --text-primary: #1e1b16;
+        --text-secondary: #4a433a;
+        --accent: #b68d5a;
+        --timeline: rgba(30, 27, 22, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--background);
+        color: var(--text-primary);
+        font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(2rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+        gap: clamp(3rem, 7vw, 5rem);
+      }
+
+      main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(3rem, 7vw, 5rem);
+      }
+
+      .page {
+        width: min(960px, 92vw);
+        padding: clamp(2rem, 5vw, 4rem);
+        position: relative;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(30, 27, 22, 0.08);
+        box-shadow: 0 30px 60px rgba(30, 27, 22, 0.08);
+        backdrop-filter: blur(4px);
+      }
+
+      .page::before {
+        content: '';
+        position: absolute;
+        top: clamp(1.5rem, 4vw, 3rem);
+        bottom: clamp(1.5rem, 4vw, 3rem);
+        left: clamp(1.5rem, 4vw, 3rem);
+        width: 1px;
+        background: var(--timeline);
+      }
+
+      .content {
+        margin-left: clamp(3.5rem, 7vw, 6rem);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+        font-weight: 600;
+        font-size: clamp(2.8rem, 7vw, 4.2rem);
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      p {
+        margin: 1.5rem 0;
+        font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+        line-height: 1.75;
+        color: var(--text-secondary);
+        max-width: 48ch;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        letter-spacing: 0.04em;
+      }
+
+      h3 {
+        margin: 0.25rem 0 0.5rem;
+        font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+        font-weight: 600;
+        font-size: clamp(1.35rem, 3vw, 1.9rem);
+        letter-spacing: 0.02em;
+      }
+
+      .artist-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        cursor: pointer;
+        position: relative;
+        padding: 0.1rem 0;
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .artist-name:focus-visible {
+        outline: 2px solid var(--text-primary);
+        outline-offset: 4px;
+      }
+
+      .artist-name:hover {
+        color: var(--text-primary);
+      }
+
+      .timeline-intro {
+        margin-left: clamp(3.5rem, 7vw, 6rem);
+        max-width: 48ch;
+      }
+
+      .timeline-intro p {
+        margin-top: 1rem;
+      }
+
+      .timeline {
+        list-style: none;
+        margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+        padding: 0 clamp(2rem, 6vw, 4.5rem);
+        position: relative;
+        display: grid;
+        gap: clamp(2.5rem, 6vw, 3.75rem);
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: var(--timeline);
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        column-gap: clamp(1.5rem, 5vw, 4rem);
+        align-items: start;
+      }
+
+      .timeline-marker {
+        position: relative;
+        width: clamp(2.5rem, 5vw, 3.5rem);
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .timeline-marker::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--text-primary);
+        box-shadow: 0 0 0 4px rgba(30, 27, 22, 0.1);
+        margin-top: 4px;
+      }
+
+      .timeline-card {
+        background: transparent;
+        border: none;
+        padding: 0;
+        max-width: clamp(18rem, 40vw, 22rem);
+        box-shadow: none;
+      }
+
+      .timeline-card p {
+        margin: 0;
+        font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      }
+
+      .timeline-era {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+
+      .timeline-item--left .timeline-card {
+        grid-column: 1;
+        text-align: right;
+        margin-left: auto;
+      }
+
+      .timeline-item--left .timeline-marker {
+        grid-column: 2;
+      }
+
+      .timeline-item--left .timeline-spacer {
+        grid-column: 3;
+      }
+
+      .timeline-item--right .timeline-card {
+        grid-column: 3;
+        text-align: left;
+        margin-right: auto;
+      }
+
+      .timeline-item--right .timeline-marker {
+        grid-column: 2;
+      }
+
+      .timeline-item--right .timeline-spacer {
+        grid-column: 1;
+      }
+
+      .timeline-spacer {
+        min-height: 1px;
+      }
+
+      .artist-tooltip {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-9999px, -9999px);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        background: rgba(255, 255, 250, 0.96);
+        border: 1px solid rgba(30, 27, 22, 0.12);
+        box-shadow: 0 18px 35px rgba(30, 27, 22, 0.18);
+        padding: 0.65rem;
+        max-width: clamp(10rem, 20vw, 12rem);
+        z-index: 1000;
+        backdrop-filter: blur(2px);
+        will-change: transform, opacity;
+      }
+
+      .artist-tooltip.is-visible {
+        opacity: 1;
+      }
+
+      .artist-tooltip img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 4px;
+        filter: saturate(0.9);
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fffdf7;
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .cta:hover {
+        transform: translateY(-2px);
+        background: #c39f72;
+      }
+
+      .cta:focus {
+        outline: 2px solid var(--text-primary);
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: clamp(1.5rem, 5vw, 3rem) 0 clamp(3rem, 8vw, 4rem);
+        }
+
+        .page {
+          padding: clamp(1.5rem, 6vw, 2.75rem);
+        }
+
+        .page::before {
+          left: clamp(1rem, 5vw, 2rem);
+        }
+
+        .content,
+        .timeline-intro {
+          margin-left: clamp(2.5rem, 10vw, 4rem);
+        }
+
+        .timeline {
+          padding: 0 clamp(1rem, 8vw, 2rem);
+        }
+
+        .timeline-item {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .timeline::before {
+          left: clamp(1.25rem, 12vw, 2rem);
+        }
+
+        .timeline-item--left .timeline-card,
+        .timeline-item--right .timeline-card {
+          grid-column: 1;
+          text-align: left;
+          margin: 0;
+        }
+
+        .timeline-item--left .timeline-marker,
+        .timeline-item--right .timeline-marker {
+          grid-column: 1;
+          justify-content: flex-start;
+          margin-bottom: 1rem;
+        }
+
+        .timeline-marker::before {
+          margin-left: 0;
+        }
+
+        .timeline-item .timeline-spacer {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main">
+      <article class="page" aria-labelledby="journey-title">
+        <section class="content">
+          <h1 id="journey-title">The Journey of Indian Painting</h1>
+          <p>
+            For centuries, Indian painting has evolved through shifting cultures,
+            philosophies, and artistic movements. Each painter shaped the next,
+            carrying forward ideas, styles, and ways of seeing the world.
+          </p>
+          <p>
+            This timeline maps influential Indian painters across history — not as
+            isolated figures, but as a continuous story of thought, expression,
+            and change.
+          </p>
+          <p>
+            There is a lineage here. And we’re tracing it.
+          </p>
+          <a class="cta" href="#timeline">Where does the story begin?</a>
+        </section>
+      </article>
+
+      <section id="timeline" class="page timeline-section" aria-labelledby="timeline-title">
+        <div class="timeline-intro">
+          <h2 id="timeline-title">Lineage of Influence</h2>
+          <p>
+            A cross-century dialogue between artists who reimagined Indian visual language,
+            each leaving marks that echo through modern practice.
+          </p>
+        </div>
+        <ol class="timeline">
+          <li class="timeline-item timeline-item--left">
+            <article class="timeline-card">
+              <span class="timeline-era">1900s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="" data-artist="Raja Ravi Varma" tabindex="0">
+                  Raja Ravi Varma
+                </span>
+              </h3>
+              <p>Blended European realism with Indian myth imagery; changed popular visual culture.</p>
+            </article>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </li>
+          <li class="timeline-item timeline-item--right">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <span class="timeline-era">1920s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Rabindranath-Tagore.jpg.webp" data-artist="Rabindranath Tagore" tabindex="0">
+                  Rabindranath Tagore
+                </span>
+              </h3>
+              <p>Late-life abstract expression drawings; broke academic realism norms.</p>
+            </article>
+          </li>
+          <li class="timeline-item timeline-item--left">
+            <article class="timeline-card">
+              <span class="timeline-era">1930s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Amrita Sher-Gil.webp" data-artist="Amrita Sher-Gil" tabindex="0">
+                  Amrita Sher-Gil
+                </span>
+              </h3>
+              <p>Brought modernism + introspective Indian female gaze; <em>Three Girls</em>.</p>
+            </article>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </li>
+          <li class="timeline-item timeline-item--right">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <span class="timeline-era">1940s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Jamini Roy.webp" data-artist="Jamini Roy" tabindex="0">
+                  Jamini Roy
+                </span>
+              </h3>
+              <p>Simplified folk-inspired forms; Santhal + Kalighat influence.</p>
+            </article>
+          </li>
+          <li class="timeline-item timeline-item--left">
+            <article class="timeline-card">
+              <span class="timeline-era">1950s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/M.F. Husain .webp" data-artist="M.F. Husain" tabindex="0">
+                  M.F. Husain
+                </span>
+              </h3>
+              <p>Founding Progressive Group; horses + Mother India motifs; national modernist icon.</p>
+            </article>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </li>
+          <li class="timeline-item timeline-item--right">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <span class="timeline-era">1950s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/S.H. Raza.webp" data-artist="S.H. Raza" tabindex="0">
+                  S.H. Raza
+                </span>
+              </h3>
+              <p><em>Bindu</em> series — spiritual abstraction rooted in Indian philosophy.</p>
+            </article>
+          </li>
+          <li class="timeline-item timeline-item--left">
+            <article class="timeline-card">
+              <span class="timeline-era">1950s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/F.N. Souza.jpeg" data-artist="F.N. Souza" tabindex="0">
+                  F.N. Souza
+                </span>
+              </h3>
+              <p>Raw, distorted, anti-establishment figurative work; shocked post-colonial India.</p>
+            </article>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </li>
+          <li class="timeline-item timeline-item--right">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <span class="timeline-era">1960s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Tyeb Mehta .jpeg" data-artist="Tyeb Mehta" tabindex="0">
+                  Tyeb Mehta
+                </span>
+              </h3>
+              <p>Minimalist, powerful <em>Falling Figures</em> — trauma + violence in modern India.</p>
+            </article>
+          </li>
+          <li class="timeline-item timeline-item--left">
+            <article class="timeline-card">
+              <span class="timeline-era">1970s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Bhupen Khakhar.jpeg" data-artist="Bhupen Khakhar" tabindex="0">
+                  Bhupen Khakhar
+                </span>
+              </h3>
+              <p>Everyday queer life &amp; middle-class India told in intimate, humorous forms.</p>
+            </article>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </li>
+          <li class="timeline-item timeline-item--right">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <span class="timeline-era">1980s–2000s</span>
+              <h3>
+                <span class="artist-name" data-artist-image="name image/Atul Dodiya.jpeg" data-artist="Atul Dodiya" tabindex="0">
+                  Atul Dodiya
+                </span>
+              </h3>
+              <p>Photo-paint collage + memory, cinema, and political symbols in contemporary India.</p>
+            </article>
+          </li>
+        </ol>
+      </section>
+    </main>
+    <div class="artist-tooltip" aria-hidden="true">
+      <img src="" alt="" />
+    </div>
+    <script>
+      (() => {
+        const tooltip = document.querySelector('.artist-tooltip');
+        if (!tooltip) return;
+        const tooltipImage = tooltip.querySelector('img');
+        const artistNames = document.querySelectorAll('.artist-name[data-artist-image]');
+        let active = null;
+
+        const hideTooltip = () => {
+          active = null;
+          tooltip.classList.remove('is-visible');
+          tooltip.style.transform = 'translate(-9999px, -9999px)';
+          if (tooltipImage) {
+            tooltipImage.removeAttribute('src');
+            tooltipImage.removeAttribute('alt');
+          }
+        };
+
+        const updatePosition = (event) => {
+          if (!tooltip.classList.contains('is-visible')) return;
+          const offset = 24;
+          let x = event.clientX + offset;
+          let y = event.clientY + offset;
+          tooltip.style.transform = `translate(${x}px, ${y}px)`;
+
+          const rect = tooltip.getBoundingClientRect();
+          const maxX = window.innerWidth - rect.width - 16;
+          const maxY = window.innerHeight - rect.height - 16;
+
+          if (rect.left > maxX || rect.top > maxY) {
+            x = Math.min(x, maxX);
+            y = Math.min(y, maxY);
+            tooltip.style.transform = `translate(${x}px, ${y}px)`;
+          }
+        };
+
+        const showTooltip = (event) => {
+          if (event.pointerType === 'touch') return;
+          const target = event.currentTarget;
+          const source = target.dataset.artistImage;
+          if (!source) return;
+          active = target;
+          tooltipImage.src = source;
+          const artistName = target.dataset.artist || target.textContent.trim();
+          tooltipImage.alt = artistName ? `Portrait of ${artistName}` : '';
+          tooltip.classList.add('is-visible');
+          updatePosition(event);
+        };
+
+        artistNames.forEach((nameEl) => {
+          nameEl.addEventListener('pointerenter', showTooltip);
+          nameEl.addEventListener('pointermove', updatePosition);
+          nameEl.addEventListener('pointerleave', hideTooltip);
+        });
+
+        window.addEventListener('scroll', () => {
+          if (!active) return;
+          hideTooltip();
+        }, { passive: true });
+      })();
+    </script>
+  </body>
+</html>
+
