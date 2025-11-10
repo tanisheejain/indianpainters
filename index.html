@@ -198,6 +198,16 @@
         font-size: clamp(0.9rem, 1.4vw, 1.05rem);
       }
 
+      .artist-work {
+        cursor: pointer;
+        position: relative;
+      }
+
+      .artist-work:focus-visible {
+        outline: 2px solid var(--text-primary);
+        outline-offset: 4px;
+      }
+
       .timeline-era {
         display: block;
         font-size: 0.75rem;
@@ -269,6 +279,39 @@
         object-fit: cover;
         border-radius: 4px;
         filter: saturate(0.9);
+      }
+
+      .work-tooltip {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-9999px, -9999px);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        background: rgba(255, 255, 250, 0.96);
+        border: 1px solid rgba(30, 27, 22, 0.12);
+        box-shadow: 0 18px 35px rgba(30, 27, 22, 0.18);
+        padding: 0.65rem;
+        max-width: min(320px, 60vw);
+        max-height: min(380px, 70vh);
+        z-index: 999;
+        backdrop-filter: blur(2px);
+        will-change: transform, opacity;
+      }
+
+      .work-tooltip.is-visible {
+        opacity: 1;
+      }
+
+      .work-tooltip img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: calc(min(380px, 70vh) - 1.3rem);
+        object-fit: contain;
+        border-radius: 4px;
+        filter: saturate(1);
       }
 
       .cta {
@@ -390,7 +433,7 @@
                   Raja Ravi Varma
                 </span>
               </h3>
-              <p>Blended European realism with Indian myth imagery; changed popular visual culture.</p>
+              <p class="artist-work" data-work-image="work image/RajaRaviVarma_Shakuntala.png" data-work="Shakuntala (1870s)">Blended European realism with Indian myth imagery; changed popular visual culture.</p>
             </article>
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-spacer" aria-hidden="true"></div>
@@ -405,7 +448,7 @@
                   Rabindranath Tagore
                 </span>
               </h3>
-              <p>Late-life abstract expression drawings; broke academic realism norms.</p>
+              <p class="artist-work" data-work-image="work image/RabindranathTagore_SelfPortrait.jpeg" data-work="Self-Portrait (1939)">Late-life abstract expression drawings; broke academic realism norms.</p>
             </article>
           </li>
           <li class="timeline-item timeline-item--left">
@@ -416,7 +459,7 @@
                   Amrita Sher-Gil
                 </span>
               </h3>
-              <p>Brought modernism + introspective Indian female gaze; <em>Three Girls</em>.</p>
+              <p class="artist-work" data-work-image="work image/Amrita_Sher-Gil_Group_of_Three_Girls.jpeg" data-work="Group of Three Girls">Brought modernism + introspective Indian female gaze; <em>Three Girls</em>.</p>
             </article>
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-spacer" aria-hidden="true"></div>
@@ -431,7 +474,7 @@
                   Jamini Roy
                 </span>
               </h3>
-              <p>Simplified folk-inspired forms; Santhal + Kalighat influence.</p>
+              <p class="artist-work" data-work-image="work image/JaminiRoy_MotherandChild .avif" data-work="Mother and Child">Simplified folk-inspired forms; Santhal + Kalighat influence.</p>
             </article>
           </li>
           <li class="timeline-item timeline-item--left">
@@ -442,7 +485,7 @@
                   M.F. Husain
                 </span>
               </h3>
-              <p>Founding Progressive Group; horses + Mother India motifs; national modernist icon.</p>
+              <p class="artist-work" data-work-image="work image/M.F._Husain_-_Five_Horses_1970s_Oil_on_canvas_43.5_x_70_in_low_res_-_Copy_6b5b7db9-4ad7-4c49-b4f0-54d88c3a7bdc.jpg.webp" data-work="Five Horses">Founding Progressive Group; horses + Mother India motifs; national modernist icon.</p>
             </article>
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-spacer" aria-hidden="true"></div>
@@ -457,7 +500,7 @@
                   S.H. Raza
                 </span>
               </h3>
-              <p><em>Bindu</em> series — spiritual abstraction rooted in Indian philosophy.</p>
+              <p class="artist-work" data-work-image="work image/S.H.Raza_Bindu .webp" data-work="Bindu"><em>Bindu</em> series — spiritual abstraction rooted in Indian philosophy.</p>
             </article>
           </li>
           <li class="timeline-item timeline-item--left">
@@ -468,7 +511,7 @@
                   F.N. Souza
                 </span>
               </h3>
-              <p>Raw, distorted, anti-establishment figurative work; shocked post-colonial India.</p>
+              <p class="artist-work" data-work-image="work image/F.N.Souza_Birth .jpeg" data-work="Birth">Raw, distorted, anti-establishment figurative work; shocked post-colonial India.</p>
             </article>
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-spacer" aria-hidden="true"></div>
@@ -483,7 +526,7 @@
                   Tyeb Mehta
                 </span>
               </h3>
-              <p>Minimalist, powerful <em>Falling Figures</em> — trauma + violence in modern India.</p>
+              <p class="artist-work" data-work-image="work image/TyebMehta_Mahishasura.png" data-work="Mahishasura">Minimalist, powerful <em>Falling Figures</em> — trauma + violence in modern India.</p>
             </article>
           </li>
           <li class="timeline-item timeline-item--left">
@@ -494,7 +537,7 @@
                   Bhupen Khakhar
                 </span>
               </h3>
-              <p>Everyday queer life &amp; middle-class India told in intimate, humorous forms.</p>
+              <p class="artist-work" data-work-image="work image/Bhupen_Khakhar_YouCan’tPleaseAll.webp" data-work="You Can't Please All">Everyday queer life &amp; middle-class India told in intimate, humorous forms.</p>
             </article>
             <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-spacer" aria-hidden="true"></div>
@@ -509,13 +552,16 @@
                   Atul Dodiya
                 </span>
               </h3>
-              <p>Photo-paint collage + memory, cinema, and political symbols in contemporary India.</p>
+              <p class="artist-work" data-work-image="work image/atul_dodiya_breakingthesaltlaw.webp" data-work="Breaking The Salt Law">Photo-paint collage + memory, cinema, and political symbols in contemporary India.</p>
             </article>
           </li>
         </ol>
       </section>
     </main>
     <div class="artist-tooltip" aria-hidden="true">
+      <img src="" alt="" />
+    </div>
+    <div class="work-tooltip" aria-hidden="true">
       <img src="" alt="" />
     </div>
     <script>
@@ -585,6 +631,81 @@
           nameEl.addEventListener('pointerenter', showTooltip);
           nameEl.addEventListener('pointermove', updatePosition);
           nameEl.addEventListener('pointerleave', hideTooltip);
+        });
+
+        window.addEventListener('scroll', () => {
+          if (!active) return;
+          hideTooltip();
+        }, { passive: true });
+      })();
+    </script>
+    <script>
+      (() => {
+        const tooltip = document.querySelector('.work-tooltip');
+        if (!tooltip) return;
+        const tooltipImage = tooltip.querySelector('img');
+        const workDescriptions = document.querySelectorAll('.artist-work[data-work-image]');
+        let active = null;
+        let lastPosition = null;
+
+        const positionTooltip = (xCoord, yCoord) => {
+          const padding = 16;
+          const offset = 24;
+          const width = tooltip.offsetWidth || 0;
+          const height = tooltip.offsetHeight || 0;
+
+          let x = xCoord - width / 2;
+          let y = yCoord - offset - height;
+
+          x = Math.max(padding, Math.min(x, window.innerWidth - width - padding));
+          y = Math.max(padding, y);
+
+          tooltip.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        const hideTooltip = () => {
+          active = null;
+          lastPosition = null;
+          tooltip.classList.remove('is-visible');
+          tooltip.style.transform = 'translate(-9999px, -9999px)';
+          if (tooltipImage) {
+            tooltipImage.removeAttribute('src');
+            tooltipImage.removeAttribute('alt');
+          }
+        };
+
+        const updatePosition = (event) => {
+          if (!tooltip.classList.contains('is-visible')) return;
+          lastPosition = { x: event.clientX, y: event.clientY };
+          positionTooltip(lastPosition.x, lastPosition.y);
+        };
+
+        const showTooltip = (event) => {
+          if (event.pointerType === 'touch') return;
+          const target = event.currentTarget;
+          const source = target.dataset.workImage;
+          if (!source) return;
+          active = target;
+          lastPosition = { x: event.clientX, y: event.clientY };
+          tooltipImage.src = source;
+          const workTitle = target.dataset.work || '';
+          tooltipImage.alt = workTitle ? `Artwork: ${workTitle}` : '';
+          tooltip.classList.add('is-visible');
+          positionTooltip(lastPosition.x, lastPosition.y);
+        };
+
+        if (tooltipImage) {
+          tooltipImage.addEventListener('load', () => {
+            if (lastPosition) {
+              positionTooltip(lastPosition.x, lastPosition.y);
+            }
+          });
+        }
+
+        workDescriptions.forEach((descEl) => {
+          descEl.addEventListener('pointerenter', showTooltip);
+          descEl.addEventListener('pointermove', updatePosition);
+          descEl.addEventListener('pointerleave', hideTooltip);
         });
 
         window.addEventListener('scroll', () => {
